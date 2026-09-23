@@ -135,6 +135,12 @@ def decade_label(year):
 
 # Этап 3. Циклы
 
+# По условию этапа 3 оба цикла содержат вывод через print.
+# Чтобы демонстрационный вывод не выполнялся при каждом запуске программы,
+# циклы объединены в функцию demonstrate_loops().
+# Функция сохраняет требуемые for/continue и while/break/else,
+# но вызывается только при необходимости.
+
 def demonstrate_loops(movies):
     for movie in movies:
         if "comedy" in movie["genres"]:
@@ -257,6 +263,24 @@ def genres_only_in_one(movies_a, movies_b):
     genres_b = all_genres(movies_b)
     return genres_a - genres_b
 
-print(all_genres(movies))
-print(common_actors(movies[0], movies[3]))
-print(genres_only_in_one(movies[5:6], movies[:5]))
+# Этап 8. Итераторы и генераторы
+
+def iter_high_rated(movies, min_rating=8.0):
+    for movie in movies:
+        if movie["rating"] >= min_rating:
+            yield movie
+
+# По условию этапа 8 работа генератора демонстрируется через print.
+# Чтобы этот вывод не выполнялся при каждом запуске программы,
+# демонстрационный цикл вынесен в отдельную функцию.
+
+def demonstrate_high_rated(movies):
+    for movie in iter_high_rated(movies):
+        print(format_report_line(movie))
+
+# Генераторное выражение
+
+total_duration = sum(
+    movie["duration_min"]
+    for movie in movies
+    if movie["rating"] > 7)
