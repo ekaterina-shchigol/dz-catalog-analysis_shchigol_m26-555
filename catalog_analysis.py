@@ -130,19 +130,20 @@ def decade_label(year):
 
 # Этап 3. Циклы
 
-for movie in movies:
-    if "comedy" in movie["genres"]:
-        continue
-    print(movie["title"])
+def demonstrate_loops(movies):
+    for movie in movies:
+        if "comedy" in movie["genres"]:
+            continue
+        print(movie["title"])
 
-i = 0
-while i < len(movies):
-    if movies[i]["rating"] > 9.0:
-        print(movies[i]["title"])
-        break
-    i += 1
-else:
-    print("Шедевров не найдено")
+    i = 0
+    while i < len(movies):
+        if movies[i]["rating"] > 9.0:
+            print(movies[i]["title"])
+            break
+        i += 1
+    else:
+        print("Шедевров не найдено")
 
 def count_long_movies(movies, threshold=120):
     count = 0
@@ -176,3 +177,29 @@ def format_report_line(movie):
         f'"{title}" ({movie["year"]}) — {movie["rating"]}/10, '
         f'{duration}, жанры: {genres}'
     )
+
+# Этап 5. Списки
+
+def titles_sorted_by_rating(movies):
+    sorted_movies = sorted(
+        movies,
+        key=lambda movie: movie["rating"],
+        reverse=True)
+
+    titles = []
+    for movie in sorted_movies:
+        titles.append(movie["title"])
+
+    return titles
+
+def top_n_by_rating(movies, n=3):
+    sorted_movies = sorted(
+        movies,
+        key=lambda movie: movie["rating"],
+        reverse=True)
+
+    top_movies = []
+    for movie in sorted_movies[:n]:
+        top_movies.append((movie["title"], movie["rating"]))
+
+    return top_movies
