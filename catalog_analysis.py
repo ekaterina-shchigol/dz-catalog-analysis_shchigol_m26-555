@@ -284,3 +284,47 @@ total_duration = sum(
     movie["duration_min"]
     for movie in movies
     if movie["rating"] > 7)
+
+
+# Этап 9. Итоговый отчёт
+
+def build_report(movies):
+    average = average_rating(movies)
+    age_stats = catalog_age_stats(movies)
+    average_age = age_stats[2]
+    top_movies = top_n_by_rating(movies, 3)
+    genre_counts = count_by_genre(movies)
+    genres = all_genres(movies)
+
+    print(f"Средний рейтинг: {average}")
+    print(f"Средний возраст фильмов: {average_age} лет")
+    print()
+
+    print("Топ-3 фильма:")
+    for top_movie in top_movies:
+        title = top_movie[0]
+
+        for movie in movies:
+            if movie["title"] == title:
+                print(f"  {format_report_line(movie)}")
+                break
+
+    print()
+
+    print("Фильмов по жанрам:")
+    sorted_genres = sorted(genre_counts)
+    sorted_genres = sorted(
+        sorted_genres,
+        key=genre_counts.get,
+        reverse=True)
+        
+    for genre in sorted_genres:
+        print(f"  {genre} — {genre_counts[genre]}")
+    print()
+
+    all_genres_line = ", ".join(sorted(genres))
+    print(f"Все жанры каталога: {all_genres_line}")
+
+
+if __name__ == "__main__":
+    build_report(movies)
