@@ -88,19 +88,24 @@ movies = [
 def average_rating(movies):
     sum_rating = 0
     count = 0
+
     for i in range(len(movies)):
         sum_rating += movies[i]["rating"]
         count += 1
     avg_rating = sum_rating / count
+
     return round(avg_rating, 1)
 
 def catalog_age_stats(movies, current_year=2026):
     years = []
+
     for i in range(len(movies)):
         years.append(movies[i]["year"])
+
     oldest_age = current_year - min(years)
     newest_age = current_year - max(years)
     average_age = current_year - (sum(years) / len(years))
+
     return (oldest_age, newest_age, math.ceil(average_age))
 
 def duration_in_hours(minutes):
@@ -232,3 +237,26 @@ above_average_ratings = {
     movie["title"]: movie["rating"]
     for movie in movies
     if movie["rating"] > average}
+
+
+# Этап 7. Множества
+
+def all_genres(movies):
+    genres = set()
+    for movie in movies:
+        genres.update(movie["genres"])
+    return genres
+
+def common_actors(movie1, movie2):
+    actors_1 = set(movie1["actors"])
+    actors_2 = set(movie2["actors"])
+    return actors_1 & actors_2
+
+def genres_only_in_one(movies_a, movies_b):
+    genres_a = all_genres(movies_a)
+    genres_b = all_genres(movies_b)
+    return genres_a - genres_b
+
+print(all_genres(movies))
+print(common_actors(movies[0], movies[3]))
+print(genres_only_in_one(movies[5:6], movies[:5]))
